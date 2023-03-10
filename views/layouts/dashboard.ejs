@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocket Sell | Dashboard</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/admin/style.css">
+</head>
+
+<body>
+  <div class="layer"></div>
+
+  <div class="page-flex">
+    <!-- ! Sidebar -->
+    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin}) %>
+
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <%- include('../partials/nav-platform', {isAdmin: isAdmin, title: "Dashboard do usuário:"}) %>
+      
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">          
+          <div class="row stat-cards">
+            <div class="col-md-6 col-xl-3">
+              <article class="stat-cards-item">
+                <div class="stat-cards-icon purple">
+                  <img style="height: 2.6rem" src="img/admin/Bulk/marketing.png" alt="">
+                </div>
+                <div class="stat-cards-info">
+                  <p class="stat-cards-info__num" style="font-weight: bold;"><%= num_campaings %> campanhas</p>
+                  <p class="stat-cards-info__title">Ativas na plataforma</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <article class="stat-cards-item">
+                <div class="stat-cards-icon purple">
+                  <img style="height: 2rem;" src="img/admin/Bulk/contatos.png" alt="">
+                </div>
+                <div class="stat-cards-info">
+                  <p class="stat-cards-info__num" style="font-weight: bold;"><%= contacts %> contatos</p>
+                  <p class="stat-cards-info__title">Importados na plataforma</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <article class="stat-cards-item">
+                <div class="stat-cards-icon success">
+                  <img style="height: 2.1rem" src="img/admin/Bulk/whatsapp.png" alt="">
+                </div>
+                <div class="stat-cards-info">
+                  <p class="stat-cards-info__num" style="font-weight: bold;"><%= credits_whatsapp %></p>
+                  <p class="stat-cards-info__title">Créditos do WhatsApp</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <article class="stat-cards-item">
+                <div class="stat-cards-icon success">
+                  <img style="height: 2.1rem" src="img/admin/Bulk/sms.png" alt="">
+                </div>
+                <div class="stat-cards-info">
+                  <p class="stat-cards-info__num" style="font-weight: bold;"><%= credits_sms %></p>
+                  <p class="stat-cards-info__title">Créditos de SMS</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg">
+              <div class="users-table table-wrapper">
+                  <table class="campaings-table">
+                    <thead>
+                      <tr class="users-table-info">
+                        <th>Thumbnail</th>
+                        <th>Titulo</th>
+                        <th>Status</th>
+                        <th>Enviados</th>
+                        <th>Custo</th>
+                        <th>Total de contatos</th>
+                        <th>Data</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <% campaings.forEach(function(item) { %>
+                          <tr>
+                            <td>
+                              <div class="categories-table-img">
+                                <picture><source srcset="<%= item.image %>"><img src="<%= item.image %>" alt="Não"></picture>
+                              </div>
+                            </td>
+                            <td>
+                              <%= item.name_campaing %>
+                            </td>
+                            <% if (item.status == "process") { %>
+                            <td><span style="font-weight: bold" class="badge badge-pill badge-active">Processando</span></td>
+                            <% } else { %>
+                            <td><span style="font-weight: bold" class="badge badge-pill badge-success">Concluído</span></td>
+                            <% } %>
+                            <td><%= item.messages_send %> mensagens</td>
+                            <td>
+                              <%= item.credits %> créditos
+                            </td>
+                            <td>
+                              <%= item.total_contacts %> contatos
+                            </td>
+                            <td>
+                              <%= item.date %>
+                            </td>
+                          </tr>
+                        <% }); %>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+            
+            <div class="col-lg-3">
+              <article class="white-block">
+                <div class="top-cat-title">
+                  <h3>Histórico na plataforma:</h3>
+                  <p>10 conteúdos</p>
+                </div>
+                <ul class="top-cat-list">
+                  <% historic.forEach(action => { %>
+                    <li>
+                      <a href="##">
+                        <div class="top-cat-list__title">
+                          <%= action.action %>
+                        </div>
+                        <div class="top-cat-list__subtitle">
+                          <span class="purple"><%= action.date %></span>
+                        </div>
+                      </a>
+                    </li>
+                  <% }) %>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ! Footer -->
+      <%- include('../partials/footer-platform') %>
+    </div>
+  </div>
+
+
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Comentários', 'Posts', 'Likes', 'Compartilhações', 'Posts'],
+      datasets: [{
+        label: '# Visão geral',
+        data: [12, 19, 8, 10, 15],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

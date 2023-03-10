@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocket Sell | Criar nova campanha</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/admin/style.css">
+</head>
+
+<body>
+  <div class="layer"></div>
+  
+  <!-- ! Body -->
+  <div class="page-flex">
+
+    <!-- ! Sidebar -->
+    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin}) %>
+
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <%- include('../partials/nav-platform', {isAdmin: isAdmin, title: "Criar nova campanha:"}) %>
+  
+      <div style="display: none;" class="enable">
+        <div>
+          <div style="display: flex; align-items: center;">
+            <img style="margin-right: 6px; height: 2vw" src="/img/admin/Bulk/messages.png" alt="">
+            <h1 class="enable-h1"></h1>
+          </div>
+          <h3>Nome da campanha</h3>
+          <p class="enable-title"></p>
+          
+          <h3>Custo:</h3>
+          <p>Valor do disparo unitário: <span style="color: #000000;">1 crédito</span></p>
+          <p class="credits-div"></p>
+          <p class="credits-div"></p>
+          <p class="remaing"></p>
+          <p class="total-contacts"></p>
+          <br>
+          <p class="total-messages"></p>
+
+          <br>
+          <button class="event" id="btn-active" style="padding: 12px 30px" onclick="saveCampaing()">Salvar</button>
+          <button class="event" id="btn-close" style="background-color: #bb0404 !important; padding: 12px 30px;" onclick="setHide()">Fechar</button>
+        </div>
+      </div>
+
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="alert" style="display: none;"></div>
+          <br>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <article class="white-block">
+                <p style="font-size: 20px; margin-bottom: 10px; font-weight: bold; border-bottom: 2.5px solid #63636360; padding-bottom: 15px; display: flex; align-items: center;"><img src="/img/admin/Bulk/messages.png" width=28 height=28 alt="" style="margin-right: 12px;">Nova campanha</p>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Nome da campanha:</p>
+                <input type="text" name="name" id="name" style="border: 2px solid #25960f" class="name" placeholder="Digite um nome para a campanha">
+                <br>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Conteúdo da mensagem</p>
+                <textarea name="" id="content-message" cols="30" rows="4" style="transition: none; padding: 10px;" placeholder="Escreva o conteúdo da mensagem que deve ser enviada aqui:"></textarea>
+                <br>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Número para redirecionamento das mensagens</p>
+                <input type="text" name="number-redirect" id="number-redirect" style="border: 2px solid #25960f" class="name" placeholder="Digite um número para redirecionar as mensagens">
+                <br>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Inserir imagens:</p>
+                <input type="file" name="files" id="files" style="border: 2px dashed #25960f !important" class="files">
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px">Visualização:</p>
+                <div class="results">
+                </div>
+                <br>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Selecione os contatos:</p>
+                <select name="contact" id="contact" onchange="defineValue()" style="width: 100%;">
+                  <option value="select">Selecione os contatos</option>
+                  <% contacts.forEach(function(item) { %>
+                    <option value="<%= item.content %>-<%= item.id %>"><%= item.title %></option>
+                  <% }) %>
+                </select>
+                <br>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Plataforma:</p>
+                <div style="display: flex;">
+                  <input type="radio" name="platform" id="sms" value="sms" tabindex="1"><p id="sms-p" style="display: flex; justify-content: center; align-items: center; margin-right: 10px;">SMS</p>
+                  <input type="radio" name="platform" id="whatsapp" value="whatsapp" tabindex="2"><p id="whatsapp-p" style="display: flex; justify-content: center; align-items: center;">WhatsApp</p>
+                </div>
+                <br>
+                <br>
+                <button style="color: #FFFFFF; background-color: #25960f; padding: 13px; border-radius: 10px" onclick="openDiv()">Inserir post</button>
+              </article>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <%- include('../partials/footer-platform') %>
+    </div>
+  </div>
+
+
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/js/jquery.fileupload.min.js"></script>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+<!-- Icons library -->
+<script src="js/admin/feather.min.js"></script>
+</body>
+</html>
+
+<script>
+  let file_input = document.querySelector('#files');
+  const enable = document.querySelector('.enable')
+  const enableH1 = document.querySelector('.enable-h1')
+  const enable_title = document.querySelector('.enable-title')
+  const name = document.querySelector('#name');
+  const credits_div = document.querySelector('.credits-div')
+  const credits_span = document.querySelector('.credits-span')
+  const content = document.querySelector('#content-message');
+  const contact = document.querySelector('#contact');
+  const remaing_credits = document.querySelector('.remaing')
+  const number_redirect = document.querySelector('#number-redirect');
+  const sms = document.querySelector('#sms');
+  const whatsapp = document.querySelector('#whatsapp');
+  const total_messages = document.querySelector('.total-messages')
+  const total_contacts = document.querySelector('.total-contacts')
+  const sms_p = document.querySelector('#sms-p')
+  const whatsapp_p = document.querySelector('#whatsapp-p')
+  let platform = ""
+  let image_preview = document.querySelector('.results');
+  let images = [];
+  let value = ""
+  let remaing = ""
+
+  const handle_file_preview = (e) => {
+    let files = e.target.files;
+    let length = files.length;
+
+    for(let i = 0; i < length; i++) {
+      let image = document.createElement('img');
+      image.setAttribute('width', '80');
+      image.setAttribute('height', '80');
+      image.setAttribute('style', 'margin-right: 1rem; border-radius: 20px; border: 2px solid #752a7a');
+      // use the DOMstring for source
+      image.src = window.URL.createObjectURL(files[i]);
+      image_preview.appendChild(image);
+
+      // add image to images array
+      images.push(files[i]);
+    }
+  }
+
+  // listen for file input changes
+  file_input.addEventListener('change', handle_file_preview);
+
+  function defineValue() {
+    const str = contact.value.split("-")
+    value = str[0].split(",").length
+  }
+
+  function openDiv() {
+    const errors = []
+
+    if (name.value.length == 0) {
+      name.style = "border: 2px solid #e00d0d !important"
+      errors.push("error")
+    }
+    if (content.value.length == 0) {
+      content.style.border = "2px solid #e00d0d";
+      errors.push("error")
+    }
+    if (number_redirect.value.length == 0) {
+      number_redirect.style.border = "2px solid #e00d0d";
+      errors.push("error")
+    }
+    if (contact.value == "select") {
+      contact.style.border = "2px solid #e00d0d";
+      errors.push("error")
+    }
+    if (sms.checked) {
+      platform = "sms"
+    }
+    if (whatsapp.checked) {
+      platform = "whatsapp"
+    }
+
+    if (errors.length == 0) {
+      enable.style.display = "flex"
+      enableH1.innerHTML = "Detalhes da campanha:"
+      enable_title.innerHTML = name.value
+
+      if (whatsapp.checked) {
+        credits_div.innerHTML = `Seus créditos (WhatsApp): <span style="color: #000000"><%= credits_whatsapp %> créditos restantes</span>`
+        if ('<%= credits_whatsapp %>' <= value) {
+          remaing = 0
+          remaing_credits.innerHTML = `Total de créditos após a campanha: <span style='color: #000000'>${remaing} créditos</span>`
+          total_contacts.innerHTML = `Total de contatos selecionados: <span style='color: #000000'>${value} contatos</span>`
+          total_messages.innerHTML = "Total de mensagens a serem enviadas: <span style='color: #000000'><%= credits_whatsapp %> mensagens</span>"
+        } else if ('<%= credits_whatsapp %>' > value) {
+          remaing = '<%= credits_whatsapp %>' - value
+          remaing_credits.innerHTML = `Total de créditos após a campanha: <span style='color: #000000'>${remaing} créditos</span>`
+          total_contacts.innerHTML = `Total de contatos selecionados: <span style='color: #000000'>${value} contatos</span>`
+          total_messages.innerHTML = `Total de mensagens a serem enviadas: <span style='color: #000000'>${value} mensagens</span>`
+        }
+      } else if (sms.checked) {
+        credits_div.innerHTML = `Seus créditos (SMS): <span style="color: #000000"><%= credits_sms %> créditos restantes</span>`
+        if ('<%= credits_sms %>' <= value) {
+          remaing = 0
+          remaing_credits.innerHTML = `Total de créditos após a campanha: <span style='color: #000000'>${remaing} créditos</span>`
+          total_contacts.innerHTML = `Total de contatos selecionados: <span style='color: #000000'>${value} contatos</span>`
+          total_messages.innerHTML = "Total de mensagens a serem enviadas: <span style='color: #000000'><%= credits_sms %> mensagens</span>"
+        } else if ('<%= credits_sms %>' > value) {
+          remaing = '<%= credits_sms %>' - value
+          remaing_credits.innerHTML = `Total de créditos após a campanha: <span style='color: #000000'>${remaing} créditos</span>`
+          total_contacts.innerHTML = `Total de contatos selecionados: <span style='color: #000000'>${value} contatos</span>`
+          total_messages.innerHTML = `Total de mensagens a serem enviadas: <span style='color: #000000'>${value} mensagens</span>`
+        }
+      }
+    }
+  }
+
+  function setHide() {
+    enable.style.display = "none"
+    count = 0
+  }
+
+  async function uploadImage(file) {
+    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dxpaf689x/upload';
+    const CLOUDINARY_UPLOAD_PRESET = 'of4ovlpe';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const response = await fetch(CLOUDINARY_URL, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    return data.secure_url;
+  }
+
+  async function saveCampaing() {
+    const file = file_input.files[0];
+    const imageUrl = await uploadImage(file);
+    const id = contact.value.split("-")
+
+    enable.style.display = "none"
+
+    fetch('/platform/new/add_campaing', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({name: name.value, content: content.value, contact: id[1], platform: platform, credits: value, number_redirect: number_redirect.value, credits_remaing: remaing, total_contacts: id[0].split(",").length, image: imageUrl})
+    })
+    .then((response) => {
+        if (response.ok) {
+            const divMessage = document.querySelector(".alert");
+            divMessage.style.display = "flex";
+            divMessage.innerHTML = "";
+            const message = document.createElement("p");
+            const img = document.createElement("img");
+            img.src = "/img/admin/Bulk/checked.png"
+            img.width = "28"
+            img.height = "28"
+            message.classList.add("message-notify");
+            message.innerText = "Campanha inserida com sucesso!";
+            divMessage.appendChild(img);
+            divMessage.appendChild(message);
+
+            setTimeout(() => {
+              divMessage.style.display = "none";
+            }, 4000);
+        } else {
+          const divMessage = document.querySelector(".alert");
+          divMessage.style.display = "flex";
+          divMessage.innerHTML = "";
+          const message = document.createElement("p");
+          const img = document.createElement("img");
+          img.src = "/img/admin/Bulk/checked.png"
+          img.width = "28"
+          img.height = "28"
+          message.classList.add("message-notify");
+          message.innerText = "Erro";
+          divMessage.appendChild(img);
+          divMessage.appendChild(message);
+
+          setTimeout(() => {
+            divMessage.style.display = "none";
+          }, 4000);
+
+          throw new Error("Erro ao processar a resposta da requisição");
+        }
+    })
+    .catch((error) => {
+      const divMessage = document.querySelector(".alert");
+      divMessage.style.display = "flex";
+      divMessage.innerHTML = "";
+      const message = document.createElement("p");
+      const img = document.createElement("img");
+      img.src = "/img/admin/Bulk/checked.png"
+      img.width = "28"
+      img.height = "28"
+      message.classList.add("message-notify");
+      message.innerText = "Erro";
+      divMessage.appendChild(img);
+      divMessage.appendChild(message);
+
+      setTimeout(() => {
+        divMessage.style.display = "none";
+      }, 4000);
+    })
+  }
+</script>

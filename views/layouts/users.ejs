@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocket Sell | Usuários</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/admin/style.css">
+</head>
+
+<body>
+  <div class="layer"></div>
+  
+  <!-- ! Body -->
+  <div class="page-flex">
+
+    <!-- ! Sidebar -->
+    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin}) %>
+
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <%- include('../partials/nav-platform', {isAdmin: isAdmin, title: "Usuários cadastrados na plataforma:"}) %>
+  
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg">
+              <div class="users-table table-wrapper">
+                <table class="posts-table">
+                  <thead>
+                    <tr class="users-table-info">
+                      <th>Nome</th>
+                      <th>Email</th>
+                      <th>Número</th>
+                      <th>Senha:</th>
+                      <th>Créditos Whats</th>
+                      <th>Créditos SMS</th>
+                      <th>Data de cadastro</th>
+                      <th>Bloqueado</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.forEach(function(item) { %>
+                      <tr>
+                        <td>
+                          <div>
+                            <%= item.name %>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>
+                            <%= item.email %>
+                          </div>
+                        </td>
+                        
+                        <td>
+                          <div>
+                            <%= item.number %>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>
+                            <%= item.password %>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>
+                            <%= item.credits_whatsapp %>
+                          </div>
+                        </td>
+                        
+                        <td>
+                          <div>
+                            <%= item.credits_sms %>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>
+                            <%= item.date %>
+                          </div>
+                        </td>
+
+                        <% if (item.isBloqued == false) { %>
+                          <td>
+                            <div style="font-weight: bold; color: rgb(52, 175, 15);">
+                              Não
+                            </div>
+                          </td>
+                        <% } else { %>
+                          <td>
+                            <div style="font-weight: bold; color: rgb(194, 18, 18);">
+                              Sim
+                            </div>
+                          </td>
+                        <% } %>
+
+                        <td>
+                          <div>
+                            <% if (item.isBloqued == false) { %>
+                              <button class="event" onclick="blockUser('<%= item._id %>')">Bloquear</button>
+                            <% } else { %>
+                              <button class="event" onclick="unlockUser('<%= item._id %>')">Desbloquear</button>
+                            <% } %>
+                            <button class="event" onclick="deleteUser('<%= item._id %>')">Excluir</button>
+                            <a href="/platform/users/<%= item._id %>"><button class="event" id="btn-edit">Modificar</button></a>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <%- include('../partials/footer-platform') %>
+    </div>
+  </div>
+
+
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Icons library -->
+<script src="js/admin/feather.min.js"></script>
+</body>
+</html>
+
+<script>
+  function blockUser(id_user) {
+    fetch("users/block/" + id_user, {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    location.reload();
+  }
+
+  function unlockUser(id_user) {
+    fetch("users/unlock/" + id_user, {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    location.reload();
+  }
+
+  function deleteUser(id_user) {
+    fetch("users/delete/" + id_user, {
+      method: "DELETE",
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    location.reload();
+  }
+
+  function editUser(cpf) {
+    const editInputs = document.querySelectorAll(`.input${cpf}`)
+    editInputs.forEach(input => {
+      input.style.display = "flex"
+    })
+  }
+</script>

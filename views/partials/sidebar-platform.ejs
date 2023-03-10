@@ -1,0 +1,99 @@
+<!-- ! Sidebar -->
+<aside class="sidebar" >
+    <div class="sidebar-start">
+        <div class="sidebar-head">
+            <a href="/" class="logo-wrapper" title="Home">
+                <span class="sr-only">Home</span>
+                <img class="logo-nav" src="/img/login/icon_branco.png">
+                <div class="logo-text"></div>
+            </a>
+            <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
+                <span class="sr-only">Toggle menu</span>
+                <span class="icon menu-toggle" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="sidebar-body">
+            <ul class="sidebar-body-menu">
+                <% if (isAdmin == false) { %>
+                    <li>
+                        <a class="active" href="/platform">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/home.png" alt=""></span>Dashboard
+                        </a>
+                        <ul class="cat-sub-menu">
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/new">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span>Nova campanha
+                        </a>
+                    </li>
+
+                    
+                    <li>
+                        <a class="show-cat-btn" href="/platform/campaings">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/marketing-side.png" alt=""></span>Todas as campanhas
+                        </a>
+                    </li>
+
+                    
+                    <li>
+                        <a class="show-cat-btn" href="/platform/contacts">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/livro-de-contato-side.png" alt=""></span>Importar contatos
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="show-cat-btn" href="/platform/historic">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/historic.png" alt=""></span>Histórico
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/credits">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/dolar.png" alt=""></span>Reabastecer saldo
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/config">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/config.png" alt=""></span>Configurações
+                        </a>
+                    </li>
+
+                <% } else if (isAdmin) { %>
+                    <span class="system-menu__title">Funções admin</span>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/users">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/usuarios.png" alt=""></span>Usuários
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/new_user">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/pages.png" alt=""></span>Novo usuário
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/all-historics">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/feedbacks.png" alt=""></span>Todos os históricos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/finance">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/dinheiro.png" alt=""></span>Finanças
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</aside>
+
+<!-- Icons library -->
+<script src="plugins/feather.min.js"></script>
+<!-- Custom scripts -->
+<script src="js/script.js"></script>
