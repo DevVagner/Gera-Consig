@@ -3586,6 +3586,7 @@ textarea {
 }
 
 .alert {
+  display: flex;
   padding: 22px 60px;
   position: fixed;
   top: 20px;
@@ -3594,7 +3595,7 @@ textarea {
   border-radius: 3px;
   z-index: 1;
   color: #fff;
-  animation: slidein 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slidein 0.2s;
 }
 
 .alert p {
@@ -3674,13 +3675,20 @@ textarea {
 }
 
 @keyframes slidein {
-  0% {
+  from {
     transform: translateX(1000px);
-    opacity: 0;
   }
-  100% {
+  to {
     transform: translateX(0);
-    opacity: 1;
+  }
+}
+
+@keyframes slideoff {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(1000px);
   }
 }
 
@@ -3693,7 +3701,7 @@ textarea {
   width: 0;
   height: 5px;
   background-color: rgba(255, 255, 255, 0.829);
-  animation: time 3s forwards;
+  animation: time 2s forwards;
 }
 
 @keyframes time {

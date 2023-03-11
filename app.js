@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, "js")));
- 
+
 app.use("/login", login)
 app.use("/platform", platform)
 
@@ -37,6 +37,6 @@ const dbConnect = () => {
 
 dbConnect()
 
-app.listen(5500, () => {
-  console.log("Porta 5500.")
+app.listen(process.env.PORT || 5500, () => {
+  console.log("Porta 3000.")
 })

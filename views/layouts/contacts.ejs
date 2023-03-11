@@ -145,15 +145,37 @@
           message.innerText = "Sucesso!";
           alert.appendChild(img);
           alert.appendChild(message);
-          enable.style.display = "none"
 
           setTimeout(() => {
-            alert.style.display = "none";
-            location.reload()
-          }, 1500);
+            alert.style = "animation: slideoff 2s;"
+            setTimeout(() => {
+              alert.style = "display: none"
+              location.reload()
+            }, 800)
+          }, 2000);
         }
-    })
-    .catch(error => console.error(error));
+      })
+      .catch(error => {
+        alert.style.display = "flex";
+        alert.innerHTML = "";
+        const message = document.createElement("p");
+        const img = document.createElement("img");
+        img.src = "/img/admin/Bulk/error.png"
+        img.width = "28"
+        img.height = "28"
+        message.classList.add("message-notify");
+        message.style = "background-color: #bb1414;"
+        message.innerText = "Erro";
+        alert.appendChild(img);
+        alert.appendChild(message);
+
+        setTimeout(() => {
+          alert.style = "animation: slideoff 2s;"
+          setTimeout(() => {
+            alert.style = "display: none"
+          }, 800)
+        }, 2000);
+      });
     }
   }
 
@@ -174,12 +196,14 @@
         message.innerText = "Contato excluido com sucesso!";
         alert.appendChild(img);
         alert.appendChild(message);
-        enable.style.display = "none"
 
         setTimeout(() => {
-          alert.style.display = "none";
-          location.reload()
-        }, 1500);
+          alert.style = "animation: slideoff 2s;"
+          setTimeout(() => {
+            alert.style = "display: none"
+            location.reload()
+          }, 800)
+        }, 2000);
       }
     })
     .catch((err) => {
@@ -187,19 +211,21 @@
       alert.innerHTML = "";
       const message = document.createElement("p");
       const img = document.createElement("img");
-      img.src = "/img/admin/Bulk/checked.png"
+      img.src = "/img/admin/Bulk/error.png"
       img.width = "28"
       img.height = "28"
       message.classList.add("message-notify");
+      message.style = "background-color: #bb1414;"
       message.innerText = "Erro ao excluir contato";
       alert.appendChild(img);
       alert.appendChild(message);
-      enable.style.display = "none"
 
       setTimeout(() => {
-        alert.style.display = "none";
-        location.reload()
-      }, 1500);
+        alert.style = "animation: slideoff 2s;"
+        setTimeout(() => {
+          alert.style = "display: none"
+        }, 800)
+      }, 2000);
     })
 
   }

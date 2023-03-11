@@ -136,8 +136,37 @@ const saveCampaing = asyncHandler(async(req, res) => {
     }
 })
 
+const deleteCampaing = asyncHandler(async(req, res) => {
+    try {
+        const find = await User.findById(req.cookies._id)
+
+        if (find) {
+            const del = await User.findByIdAndUpdate(req.cookies._id, {
+                $pull: {
+                    campaings: {
+                        id_campaing: req.params.id
+                    }
+                }
+            })
+
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(500)
+        }
+    } catch (err) {
+        res.sendStatus(500)
+    }
+
+    if (find.id_admin == "63f339ba64a838f6882aa2a8") {
+        const historic = await Historic.create({"action": `Campanha excluída: ${name}`, "name": find.name, "id_user": find._id, "credits_sms": find.credits_sms, "credits_whatsapp": find.credits_whatsapp, "date": dataFormat, id_admin: "63f339ba64a838f6882aa2a8"})
+    } else if (find.id_admin == "640b38d77ec66631a7b9380c") {
+        const historic = await Historic.create({"action": `Campanha excluída: ${name}`, "name": find.name, "id_user": find._id, "credits_sms": find.credits_sms, "credits_whatsapp": find.credits_whatsapp, "date": dataFormat, id_admin: "640b38d77ec66631a7b9380c"})
+    }
+})
+
 module.exports = {
     campaings,
     newCampaing,
     saveCampaing,
+    deleteCampaing
 }

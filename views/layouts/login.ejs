@@ -10,11 +10,12 @@
     <title>Rocket Sell | Login</title>
     <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/login/login.css">
-
   </head>
 
 <body>
   <div class="main">
+    <div class="alert" style="display: none;"></div>
+
     <div class="box" id="box">
       <div class="login-box">
         <img class="icon" src="/img/login/rocketsell.png" alt="Icon">
@@ -37,11 +38,11 @@
     const password = document.querySelector("#inputPassword").value;
 
     if (email.length == 0) { 
-      email.style.cssText = "border: 2px solid red"
+      email.style = "border: 2px solid red"
     }
 
     if (password.length == 0) {
-      password.style.cssText = "border: 2px solid red"
+      password.style = "border: 2px solid red"
     }
 
     fetch("/login/auth", {
@@ -57,11 +58,29 @@
       .then((data) => {
         if (data.auth) {
           if (data.admin) {
-            // window.location.href = "https://rocket-sell.herokuapp.com/users"
-            location.reload()
+            window.location.href = "https://rocketsell.herokuapp.com/platform/users"
+            // location.reload()
           } else if (data.admin == false) {
             location.reload()
           }
+        } else if (data.auth == false) {
+          const divMessage = document.querySelector(".alert");
+          divMessage.style.display = "flex";
+          divMessage.innerHTML = "";
+          const message = document.createElement("p");
+          const img = document.createElement("img");
+          img.src = "/img/admin/Bulk/error.png"
+          message.classList.add("message-notify");
+          message.innerText = "Usuário não existente";
+          divMessage.appendChild(img);
+          divMessage.appendChild(message);
+
+          setTimeout(() => {
+            divMessage.style = "animation: slideoff 2s;"
+            setTimeout(() => {
+              divMessage.style = "display: none"
+            }, 800)
+          }, 2000);
         }
       })
       .catch((error) => {

@@ -34,6 +34,7 @@ const {
     campaings,
     newCampaing,
     saveCampaing,
+    deleteCampaing,
 } = require('../controllers/newCampaing')
 
 const { 
@@ -67,6 +68,7 @@ router.get("/campaings", auth, campaings)
 // Nova campanha
 router.get("/new", auth, newCampaing)
 router.post("/new/add_campaing/", auth, saveCampaing)
+router.delete("/campaings/delete/:id", auth, deleteCampaing)
 
 
 

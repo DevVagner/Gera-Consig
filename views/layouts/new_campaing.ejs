@@ -44,7 +44,7 @@
           <p class="total-messages"></p>
 
           <br>
-          <button class="event" id="btn-active" style="padding: 12px 30px" onclick="saveCampaing()">Salvar</button>
+          <button class="event" id="btn-active" style="padding: 12px 30px" onclick="checkSald()">Salvar</button>
           <button class="event" id="btn-close" style="background-color: #bb0404 !important; padding: 12px 30px;" onclick="setHide()">Fechar</button>
         </div>
       </div>
@@ -266,24 +266,7 @@
       body: JSON.stringify({name: name.value, content: content.value, contact: id[1], platform: platform, credits: value, number_redirect: number_redirect.value, credits_remaing: remaing, total_contacts: id[0].split(",").length, image: imageUrl})
     })
     .then((response) => {
-        if (response.ok) {
-            const divMessage = document.querySelector(".alert");
-            divMessage.style.display = "flex";
-            divMessage.innerHTML = "";
-            const message = document.createElement("p");
-            const img = document.createElement("img");
-            img.src = "/img/admin/Bulk/checked.png"
-            img.width = "28"
-            img.height = "28"
-            message.classList.add("message-notify");
-            message.innerText = "Campanha inserida com sucesso!";
-            divMessage.appendChild(img);
-            divMessage.appendChild(message);
-
-            setTimeout(() => {
-              divMessage.style.display = "none";
-            }, 4000);
-        } else {
+      if (response.ok) {
           const divMessage = document.querySelector(".alert");
           divMessage.style.display = "flex";
           divMessage.innerHTML = "";
@@ -293,16 +276,18 @@
           img.width = "28"
           img.height = "28"
           message.classList.add("message-notify");
-          message.innerText = "Erro";
+          message.innerText = "Campanha inserida com sucesso!";
           divMessage.appendChild(img);
           divMessage.appendChild(message);
 
           setTimeout(() => {
-            divMessage.style.display = "none";
-          }, 4000);
-
-          throw new Error("Erro ao processar a resposta da requisição");
-        }
+            divMessage.style = "animation: slideoff 2s;"
+            setTimeout(() => {
+              divMessage.style = "display: none"
+              location.reload()
+            }, 800)
+          }, 2000);
+      }
     })
     .catch((error) => {
       const divMessage = document.querySelector(".alert");
@@ -310,17 +295,75 @@
       divMessage.innerHTML = "";
       const message = document.createElement("p");
       const img = document.createElement("img");
-      img.src = "/img/admin/Bulk/checked.png"
+      img.src = "/img/admin/Bulk/error.png"
       img.width = "28"
       img.height = "28"
       message.classList.add("message-notify");
+      divMessage.style = "background-color: #bb1414;"
       message.innerText = "Erro";
       divMessage.appendChild(img);
       divMessage.appendChild(message);
 
       setTimeout(() => {
-        divMessage.style.display = "none";
-      }, 4000);
+        divMessage.style = "animation: slideoff 2s;"
+        setTimeout(() => {
+          divMessage.style = "display: none"
+        }, 800)
+      }, 2000);
     })
+  }
+
+  async function checkSald() {
+    if (platform == "whatsapp") {
+      if ("<%= credits_whatsapp %>" == 0) {
+        const divMessage = document.querySelector(".alert");
+        divMessage.style.display = "flex";
+        divMessage.innerHTML = "";
+        const message = document.createElement("p");
+        const img = document.createElement("img");
+        img.src = "/img/admin/Bulk/error.png"
+        img.width = "28"
+        img.height = "28"
+        message.classList.add("message-notify");
+        divMessage.style = "background-color: #bb1414;"
+        message.innerText = "Saldo insuficiente";
+        divMessage.appendChild(img);
+        divMessage.appendChild(message);
+
+        setTimeout(() => {
+          divMessage.style = "animation: slideoff 2s;"
+          setTimeout(() => {
+            divMessage.style = "display: none"
+          }, 800)
+        }, 2000);
+      } else {
+        const save = await saveCampaing()
+      }
+    } else if (platform == "sms") {
+      if ('<%= credits_sms %>' == 0) {
+        const divMessage = document.querySelector(".alert");
+        divMessage.style.display = "flex";
+        divMessage.innerHTML = "";
+        const message = document.createElement("p");
+        const img = document.createElement("img");
+        img.src = "/img/admin/Bulk/error.png"
+        img.width = "28"
+        img.height = "28"
+        message.classList.add("message-notify");
+        divMessage.style = "background-color: #bb1414;"
+        message.innerText = "Saldo insuficiente";
+        divMessage.appendChild(img);
+        divMessage.appendChild(message);
+
+        setTimeout(() => {
+          divMessage.style = "animation: slideoff 2s;"
+          setTimeout(() => {
+            divMessage.style = "display: none"
+          }, 800)
+        }, 2000);
+      } else {
+        const save = await saveCampaing()
+      }
+    }
   }
 </script>
