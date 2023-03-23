@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rocket Sell | Editar usuário</title>
+  <title>Gera Consig | Editar usuário</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/img/login/gera.png" type="image/x-icon">
   <!-- Custom styles -->
   <link rel="stylesheet" href="/css/admin/style.css">
 </head>
@@ -34,33 +34,26 @@
           <div class="row">
             <div class="col-lg-12">
               <article class="white-block">
-                <p style="font-size: 20px; margin-bottom: 10px; font-weight: bold; border-bottom: 2.5px solid #63636360; padding-bottom: 15px; display: flex; align-items: center;"><img src="/img/admin/Bulk/edit.png" width=28 height=28 alt="" style="margin-right: 12px;">Editar usuário</p>
+                <p style="font-size: 20px; margin-bottom: 10px; font-weight: bold; border-bottom: 2.5px solid #63636360; padding-bottom: 15px; display: flex; align-items: center;"><img src="/img/admin/editar.png" width=28 height=28 alt="" style="margin-right: 12px;">Editar usuário</p>
                 <br>
                 <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Nome do usuário</p>
-                <input type="text" name="name" id="name" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.name %>">
+                <input type="text" name="name" id="name" style="border: 2px solid #F1660D; padding: 5px;" value="<%= find.name %>">
                 <br>
                 <br>
                 <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Email:</p>
-                <input type="text" name="email" id="email" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.email %>">
+                <input type="text" name="email" id="email" style="border: 2px solid #F1660D; padding: 5px;" value="<%= find.email %>">
                 <br>
                 <br>
                 <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Senha:</p>
-                <input type="text" name="password" id="password" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.password %>">
+                <input type="text" name="password" id="password" style="border: 2px solid #F1660D; padding: 5px;" value="<%= find.password %>">
                 <br>
                 <br>
-                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Número de telefone:</p>
-                <input type="text" name="number" id="number" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.number %>">
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Valor pago:</p>
+                <input type="text" name="value" id="value" style="border: 2px solid #F1660D; padding: 5px;" value="<%= find.value %>">
                 <br>
                 <br>
-                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold; display: flex; align-items: center;"><img src="/img/admin/Bulk/whatsapp.png" width=18 height=18 alt="" style="margin-right: 6px;">Créditos de WhatsApp:</p>
-                <input type="text" name="credits-whats" id="credits-whats" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.credits_whatsapp %>">
-                <br>
-                <br>
-                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold; display: flex; align-items: center;"><img src="/img/admin/Bulk/sms.png" width=18 height=18 alt="" style="margin-right: 6px;">Créditos de SMS:</p>
-                <input type="text" name="credits-sms" id="credits-sms" style="border: 2px solid #25960f; padding: 5px;" value="<%= find.credits_sms %>">
-                <br>
-                <br>
-                <button style="color: #FFFFFF; background-color: #25960f; padding: 13px; border-radius: 10px" onclick="save()">Atualizar usuário</button>
+
+                <button style="color: #FFFFFF; background-color: #F1660D; padding: 13px; border-radius: 10px" onclick="save()">Atualizar usuário</button>
               </article>
             </div>
           </div>
@@ -86,9 +79,7 @@
   const name = document.querySelector("#name")
   const email = document.querySelector("#email")
   const password = document.querySelector("#password")
-  const number = document.querySelector("#number")
-  const credits_whatsapp = document.querySelector("#credits-whats")
-  const credits_sms = document.querySelector("#credits-sms")
+  const value = document.querySelector("#value")
 
   function save() {
     const errors = []
@@ -105,16 +96,8 @@
       email.style.border = "2px solid #e00d0d";
       errors.push("error")
     }
-    if (number.value.length == 0) {
-      number.style.border = "2px solid #e00d0d";
-      errors.push("error")
-    }
-    if (credits_whatsapp.value.length == 0) {
-      credits_whatsapp.style.border = "2px solid #e00d0d";
-      errors.push("error")
-    }
-    if (credits_sms.value.length == 0) {
-      credits_sms.style.border = "2px solid #e00d0d";
+    if (value.value.length == 0) {
+      value.style.border = "2px solid #e00d0d";
       errors.push("error")
     }
     if (errors.length == 0) {
@@ -123,7 +106,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({name: name.value, email: email.value, password: password.value, number: number.value, credits_whatsapp: credits_whatsapp.value, credits_sms: credits_sms.value})
+        body: JSON.stringify({name: name.value, email: email.value, password: password.value, value: value.value})
       })
       .then((response) => {
           if (response.ok) {

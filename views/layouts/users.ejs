@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rocket Sell | Usuários</title>
+  <title>Gera Consig | Usuários</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/img/login/gera.png" type="image/x-icon">
   <!-- Custom styles -->
   <link rel="stylesheet" href="/css/admin/style.css">
 </head>
@@ -36,10 +36,8 @@
                     <tr class="users-table-info">
                       <th>Nome</th>
                       <th>Email</th>
-                      <th>Número</th>
-                      <th>Senha:</th>
-                      <th>Créditos Whats</th>
-                      <th>Créditos SMS</th>
+                      <th>Senha</th>
+                      <th>Valor pago</th>
                       <th>Data de cadastro</th>
                       <th>Bloqueado</th>
                       <th>Ações</th>
@@ -59,12 +57,6 @@
                             <%= item.email %>
                           </div>
                         </td>
-                        
-                        <td>
-                          <div>
-                            <%= item.number %>
-                          </div>
-                        </td>
 
                         <td>
                           <div>
@@ -74,13 +66,7 @@
 
                         <td>
                           <div>
-                            <%= item.credits_whatsapp %>
-                          </div>
-                        </td>
-                        
-                        <td>
-                          <div>
-                            <%= item.credits_sms %>
+                            R$<%= item.value %>
                           </div>
                         </td>
 
@@ -107,12 +93,12 @@
                         <td>
                           <div>
                             <% if (item.isBloqued == false) { %>
-                              <button class="event" onclick="blockUser('<%= item._id %>')">Bloquear</button>
+                              <button style="background-color: #e4d610 !important;" class="event" onclick="blockUser('<%= item._id %>')">Bloquear</button>
                             <% } else { %>
-                              <button class="event" onclick="unlockUser('<%= item._id %>')">Desbloquear</button>
+                              <button style="background-color: #e4d610 !important;" class="event" onclick="unlockUser('<%= item._id %>')">Desbloquear</button>
                             <% } %>
-                            <button class="event" onclick="deleteUser('<%= item._id %>')">Excluir</button>
-                            <a href="/platform/users/<%= item._id %>"><button class="event" id="btn-edit">Modificar</button></a>
+                            <button style="background-color: #b80e0e !important;" class="event" onclick="deleteUser('<%= item._id %>')">Excluir</button>
+                            <a href="/platform/users/<%= item._id %>"><button style="background-color: #2168d1 !important" class="event" id="btn-edit">Modificar</button></a>
                           </div>
                         </td>
                       </tr>

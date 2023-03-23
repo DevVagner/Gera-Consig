@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pluBee | Todos os posts</title>
+  <title>Gera Consig | Todas as solicitações</title>
   <!-- Favicon -->
   <link rel="shortcut icon" href="/img/login/gera.png" type="image/x-icon">
   <!-- Custom styles -->
@@ -19,41 +19,59 @@
   <div class="page-flex">
 
     <!-- ! Sidebar -->
-    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin, name: name}) %>
+    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin}) %>
 
     <div class="main-wrapper">
       <!-- ! Main nav -->
       <%- include('../partials/nav-platform', {isAdmin: isAdmin, title: "Solicitações:"}) %>
   
       <!-- ! Main -->
-      <% if (pendings.length > 0) { %>
+      <% if (pending.length > 0) { %>
       <main class="main users chart-page" id="skip-target">
         <div class="container">
-          <div class="row" style="margin-top: 16px">
-            <% pendings.forEach(function(item) { %>
+          <h2>Pendentes:</h2>
+          <div class="row" style="margin-top: 16px; margin-bottom: 80px;">
+            <% pending.forEach(function(item) { %>
               <div class="col-md-6 col-xl-3">
                 <article class="stat-cards-item">
                   <div class="stat-cards-icon warning">
-                    <% if (item.status == "concluded") { %>
-                    <img style="height: 36px;" src="/img/admin/tick.png" alt="">
-                    <% } else { %>
                     <img style="height: 35px;" src="/img/admin/expirado.png" alt="">
-                    <% } %>
                   </div>
                   <div class="stat-cards-info">
                     <p class="stat-cards-info__num"><%= item.name %></p>
                     <p class="stat-cards-info__title description-group">Data de criação: <%= item.date %></p>
-                    <% if (item.status == "pending") { %>
                     <p class="stat-cards-info__title description-group" style="font-weight: bold; color: #e2cd0d">Status: Pendente</p>
                     <div>
-                      <button class="event-delete">Cancelar</button>
+                      <button style="background-color: #1e59c7 !important;" class="event-update">Info</button>
+                      <button style="background-color: #1ba722 !important;" class="event-update">Conluir</button>
+                      <button class="event-delete">Excluir</button>
                     </div>
-                    <% } else if (item.status == "concluded") { %>
+                  </div>
+                </article>
+              </div>
+            <% }) %>
+          </div>
+
+          <h2>Concluídos:</h2>
+          <div class="row" style="margin-top: 16px">
+            <% concluded.forEach(function(item) { %>
+              <div class="col-md-6 col-xl-3">
+                <article class="stat-cards-item">
+                  <div class="stat-cards-icon warning">
+                    <img style="height: 35px;" src="/img/admin/tick.png" alt="">
+                  </div>
+                  <div class="stat-cards-info">
+                    <p class="stat-cards-info__num"><%= item.name %></p>
+                    <p class="stat-cards-info__title description-group">Data de criação: <%= item.date %></p>
                     <p class="stat-cards-info__title description-group" style="font-weight: bold; color: #27a80d">Status: Concluído</p>
                     <div>
                       <p class="stat-cards-info__title description-group" style="font-weight: bold; color: #27a80d"><%= item.link %></p>
                     </div>
-                    <% } %>
+                    <div>
+                      <button style="background-color: #1e59c7 !important;" class="event-update">Info</button>
+                      <button style="background-color: #1ba722 !important;" class="event-update">Editar link</button>
+                      <button class="event-delete">Excluir</button>
+                    </div>
                   </div>
                 </article>
               </div>

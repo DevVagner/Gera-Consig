@@ -13,18 +13,6 @@ const Historic = new mongoose.Schema({
         type: String,
         require: true        
     },
-    credits_whatsapp: {
-        type: Number,
-        require: true
-    },
-    credits_sms: {
-        type: Number,
-        require: true
-    },
-    id_admin: {
-        type: String,
-        require: true
-    },
     date: {
         type: String,
         require: true

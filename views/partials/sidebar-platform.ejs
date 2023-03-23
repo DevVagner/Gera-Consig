@@ -4,7 +4,7 @@
         <div class="sidebar-head">
             <a href="/" class="logo-wrapper" title="Home">
                 <span class="sr-only">Home</span>
-                <img class="logo-nav" src="/img/login/icon_branco.png">
+                <img class="logo-nav" src="/img/login/gera-white.png">
                 <div class="logo-text"></div>
             </a>
             <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
@@ -17,78 +17,111 @@
                 <% if (isAdmin == false) { %>
                     <li>
                         <a class="active" href="/platform">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/home.png" alt=""></span>Dashboard
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/home.png" alt=""></span><p style="font-size: 15px">Dashboard</p>
                         </a>
                         <ul class="cat-sub-menu">
                         </ul>
                     </li>
 
                     <li>
-                        <a class="show-cat-btn" href="/platform/new">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span>Nova campanha
-                        </a>
-                    </li>
-
-                    
-                    <li>
-                        <a class="show-cat-btn" href="/platform/campaings">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/marketing-side.png" alt=""></span>Todas as campanhas
-                        </a>
-                    </li>
-
-                    
-                    <li>
-                        <a class="show-cat-btn" href="/platform/contacts">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/livro-de-contato-side.png" alt=""></span>Importar contatos
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a class="show-cat-btn" href="/platform/historic">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/historic.png" alt=""></span>Histórico
+                        <a class="show-cat-btn" href="/platform/inss_entrantes">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">INSS ENTRANTES</p>
                         </a>
                     </li>
 
                     <li>
-                        <a class="show-cat-btn" href="/platform/credits">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/dolar.png" alt=""></span>Reabastecer saldo
+                        <a class="show-cat-btn" href="/platform/inss_tomadores">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">INSS TOMADORES</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/siape">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">SIAPE</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/exercito">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">EXÉRCITO</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/marinha">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">MARINHA</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/aeronautica">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">AERONÁUTICA</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/governos">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 14px">GOVERNOS ESTADUAIS</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/prefeituras">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 12.5px">PREFEITURAS MUNICIPAIS</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/consignado">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 14px">CONSIGNADO PRIVADO</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="show-cat-btn" href="/platform/fgts">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 14px">FGTS</p>
                         </a>
                     </li>
 
                     <li>
                         <a class="show-cat-btn" href="/platform/config">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/config.png" alt=""></span>Configurações
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/config.png" alt=""></span><p style="font-size: 15px">Configurações</p>
                         </a>
                     </li>
 
+                    <div class="accounts-sidebar">
+                        <div>
+                            <img src="/img/admin/account.png" alt="" height="30px">
+                        </div>
+        
+                        <div>
+                            <p style="font-weight: bold; margin-bottom: 4px;"><%= name %></p>
+                            <p style="font-size: 12px">Plano avançado</p>
+                        </div>
+                    </div>        
+                
                 <% } else if (isAdmin) { %>
-                    <span class="system-menu__title">Funções admin</span>
+                    <li>
+                        <a class="show-cat-btn" href="/platform/pendings">
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/solicitacao.png" alt=""></span><p style="font-size: 15px">Solicitações</p>
+                        </a>
+                        <ul class="cat-sub-menu">
+                        </ul>
+                    </li>
 
                     <li>
                         <a class="show-cat-btn" href="/platform/users">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/usuarios.png" alt=""></span>Usuários
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/usuarios.png" alt=""></span><p style="font-size: 15px">Usuários</p>
                         </a>
                     </li>
 
                     <li>
                         <a class="show-cat-btn" href="/platform/new_user">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span>Novo usuário
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="show-cat-btn" href="/platform/all-historics">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/historic.png" alt=""></span>Todos os históricos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="show-cat-btn" href="/platform/finance">
-                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/dolar.png" alt=""></span>Finanças
+                            <span class="icon" aria-hidden="true"><img src="/img/admin/Bulk/mais.png" alt=""></span><p style="font-size: 15px">Novo usuário</p>
                         </a>
                     </li>
                 <% } %>
-            </ul>
+            </ul>            
         </div>
     </div>
 </aside>

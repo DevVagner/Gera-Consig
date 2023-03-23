@@ -3,14 +3,27 @@ const User = require('../models/User')
 const Finances = require('../models/Finances')
 const Historic = require('../models/Historic')
 
-const feedbacks = asyncHandler(async(req, res) => {
-    const getFeedbacks = await Feedbacks.find({}).lean()
+const pendings = asyncHandler(async(req, res) => {
+    const find = await User.find()
 
-    res.render('layouts/feedbacks', { isAdmin: true, feedbacks: getFeedbacks })
+    const pendings = []
+    const concluded = []
+
+    find.forEach((item) => {
+        item.pendings.forEach((pending) => {
+            if (pending.status == "pending") {
+                pendings.push(pending)
+            } else if (pending.status == "concluded") {
+                concluded.push(pending)
+            }
+        })
+    })
+
+    res.render('layouts/pendings', { isAdmin: true, pending: pendings, concluded: concluded })
 })
 
 const users = asyncHandler(async(req, res) => {
-    const users = await User.find({id_admin: req.cookies._id})
+    const users = await User.find()
 
     res.render('layouts/users', { isAdmin: true, users: users })
 })
@@ -21,18 +34,14 @@ const newUser = asyncHandler(async(req, res) => {
 
 const saveUser = asyncHandler(async(req, res) => {
     try {
-        const { name, email, password, number, credits_whatsapp, credits_sms } = req.body
+        const { name, email, password, value} = req.body
 
         const data = Date.now();
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         const formater = new Intl.DateTimeFormat('pt-BR', options);
         const dataFormat = formater.format(data);
 
-        if (req.cookies._id == "63f339ba64a838f6882aa2a8") {
-            const newUser = await User.create({name: name, email: email, password: password, number: number, credits_whatsapp: parseInt(credits_whatsapp), credits_sms: parseInt(credits_sms), date: dataFormat, id_admin: "63f339ba64a838f6882aa2a8"})
-        } else if (req.cookies._id == "640b38d77ec66631a7b9380c") {
-            const newUser = await User.create({name: name, email: email, password: password, number: number, credits_whatsapp: parseInt(credits_whatsapp), credits_sms: parseInt(credits_sms), date: dataFormat, id_admin: "640b38d77ec66631a7b9380c"})
-        }
+        const newUser = await User.create({name: name, email: email, password: password, value: value, date: dataFormat})
 
         res.sendStatus(200)
     } catch (err) {
@@ -98,26 +107,8 @@ const deleteUser = asyncHandler(async(req, res) => {
     }
 })
 
-const finance = asyncHandler(async(req, res) => {
-    const finance = await Finances.find({}).lean()
-
-    valueTotal = 0
-
-    finance.forEach((value) => {
-        valueTotal = valueTotal + value.value
-    })
-
-    res.render('layouts/finance', { isAdmin: true, finance: finance, valueTotal: valueTotal })
-})
-
-const historics = asyncHandler(async(req, res) => {
-    const find = await Historic.find({id_admin: req.cookies._id})
-
-    res.render('layouts/allHistorics', { isAdmin: true, historics: find })
-})
-
 module.exports = {
-    feedbacks,
+    pendings,
     users,
     newUser,
     saveUser,
@@ -126,6 +117,4 @@ module.exports = {
     blockUser,
     unlockUser,
     deleteUser,
-    finance,
-    historics
 }

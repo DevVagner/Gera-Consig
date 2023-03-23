@@ -5,7 +5,7 @@
 body {
 	margin: 0%;
 	padding: 0%;
-	background: url("/img/login/image-bg.png");
+	background-color: #fc8338;
 }
 
 .main {
@@ -19,9 +19,9 @@ body {
 }
 
 .box {
-	display: grid;
-	grid-template-columns: 25vw 25vw;
-	width: 25vw;
+	display: flex;
+	justify-content: space-between;
+	width: 50vw;
 	height: 29vw;
 	background: #FFFFFF;
 	box-shadow: 0px 4px 12px 7px rgba(0, 0, 0, 0.25);
@@ -34,7 +34,7 @@ h1 {
 	font-style: normal;
 	font-weight: 400;
 	font-size: 2vw;
-	color: #42b32b;
+	color: #F1660D;
 }
 
 .p-dados {
@@ -58,10 +58,10 @@ h1 {
 .btn-login {
 	width: 10vw;
 	height: 3vw;
-	background: #42b32b;
+	background: #F1660D;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 26px;
-	border: 3px solid #42b32b;
+	border: 3px solid #F1660D;
 	font-family: 'MADE TOMMY';
 	font-style: normal;
 	font-weight: 800;
@@ -75,10 +75,10 @@ h1 {
 }
 
 input {
-	width: 14vw;
+	width: 13vw;
 	height: 2.4vw;
 	margin: 10px;
-	border: 4px solid #42b32b;
+	border: 4px solid #F1660D;
 	border-radius: 16px;
 	font-family: 'MADE TOMMY';
 	font-style: normal;
@@ -87,6 +87,7 @@ input {
 	display: flex;
 	align-items: center;
 	color: #8F8F8F;
+	padding: 0 8px;
 }
 
 .login-box {
@@ -94,18 +95,29 @@ input {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-right: 4vw;
 }
 
-img {
-	height: 3vw;
-	margin-top: 3vw;
+.img-box {
+	width: 52%;
+	border-radius: 54px 0 0 54px;
+}
+
+.img-box img {
+	width: 100%;
+	height: 100%;
+	border-radius: 54px 0 0 54px;
+}
+
+img.icon {
+	height: 13%;
 	margin-bottom: 1.4vw;
 }
 
 .btn-login:hover {
 	background-color: #ffffff;
-	color: #42b32b;
-	border: 3px solid #42b32b;
+	color: #F1660D;
+	border: 3px solid #F1660D;
 }
 
 .alert {
@@ -187,7 +199,7 @@ img {
 	h1 {
 		font-size: 8vw;
 		margin: 0px;
-		color: #42b32b;
+		color: #F1660D;
 	}
 	
 	.p-dados {
@@ -219,7 +231,7 @@ img {
 		height: 7vw;
 		margin: 10px;
 		font-size: 15px !important;
-		border: 4px solid #42b32b;
+		border: 4px solid #F1660D;
 		border-radius: 16px;
 		font-size: 4vw;
 		display: flex;
@@ -240,7 +252,7 @@ img {
 		
 	.btn-login:hover {
 		background-color: #ffffff;
-		color: #42b32b;
-		border: 3px solid #42b32b;
+		color: #F1660D;
+		border: 3px solid #F1660D;
 	}
 }

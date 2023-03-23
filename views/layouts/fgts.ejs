@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gera Consig | Gerador</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/login/gera.png" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/admin/style.css">
+</head>
+
+<body>
+  <div class="layer"></div>
+  
+  <!-- ! Body -->
+  <div class="page-flex">
+
+    <!-- ! Sidebar -->
+    <%- include('../partials/sidebar-platform', {isAdmin: isAdmin, name: name}) %>
+
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <%- include('../partials/nav-platform', {isAdmin: isAdmin, title: "Gerador:"}) %>
+
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="alert" style="display: none;"></div>
+          <br>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <article class="white-block">
+                <p style="font-size: 20px; margin-bottom: 10px; font-weight: bold; border-bottom: 2.5px solid #63636360; padding-bottom: 15px; display: flex; align-items: center;"><img src="/img/admin/adicionar.png" width=28 height=28 alt="" style="margin-right: 12px;">Gerar <span style="color: #F1660D; margin-left: 5px;"> FGTS</span></p>
+                <br>
+                <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Insira um nome:</p>
+                <input type="text" name="name" id="name" style" placeholder="Digite um nome para a lista">
+                <br>
+                <br>
+                <div>
+                  <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Saldo mínimo</p>
+                  <input type="text" name="balance-min" id="balance-min" style="width: 100%" placeholder="Saldo mínimo:">  
+                </div>
+                <br>
+                <br>
+                <div>
+                  <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Saldo máximo</p>
+                  <input type="text" name="balance-max" id="balance-max" style="width: 100%" placeholder="Saldo máximo:">  
+                </div>
+                <br>
+                <br>
+                <div class="div-infos">
+                  <div>
+                    <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">UF:</p>
+                    <input type="text" name="uf" id="uf" style="width: 100%" placeholder="Digite o nome do estado">  
+                  </div>
+                  <div>
+                    <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Cidade:</p>
+                    <input type="text" name="city" id="city" style="width: 100%" placeholder="Digite o nome da cidade">  
+                  </div>
+                  <div>
+                    <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Idade mínima</p>
+                    <input type="text" name="age-min" id="age-min" style="width: 100%" placeholder="Insira a idade mínima">  
+                  </div>
+                  <div>
+                    <p style="font-size: 15px; margin-bottom: 10px; font-weight: bold;">Idade máxima</p>
+                    <input type="text" name="age-max" id="age-max" style="width: 100%" placeholder="Insira a idade máxima">  
+                  </div>
+                </div>
+                <br>
+                <br>
+                <button style="color: #FFFFFF; background-color: rgb(240, 102, 16); padding: 13px; border-radius: 10px" onclick="save()">Gerar</button>
+              </article>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <%- include('../partials/footer-platform') %>
+    </div>
+  </div>
+
+
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/js/jquery.fileupload.min.js"></script>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+<!-- Icons library -->
+<script src="js/admin/feather.min.js"></script>
+</body>
+</html>
+
+<script>
+  const name = document.querySelector('#name');
+  const uf = document.querySelector('#uf');
+  const city = document.querySelector('#city');
+  const age_min = document.querySelector('#age-min');
+  const age_max = document.querySelector('#age-max');
+  const balance_min = document.querySelector('#balance-min')
+  const balance_max = document.querySelector('#balance-max')
+
+  async function save() {
+    const errors = []
+
+    if (name.value.length == 0) {
+      errors.push('error')
+      name.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (uf.value.length == 0) {
+      errors.push('error')
+      uf.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (city.value.length == 0) {
+      errors.push('error')
+      city.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (age_min.value.length == 0) {
+      errors.push('error')
+      age_min.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (age_max.value.length == 0) {
+      errors.push('error')
+      age_max.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (balance_min.value.length == 0) {
+      errors.push('error')
+      balance_min.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (balance_max.value.length == 0) {
+      errors.push('error')
+      balance_max.style.border = '2px solid #bb1414 !important'
+    }
+
+    if (errors.length == 0) {
+      fetch('/platform/save', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name: name.value, uf: uf.value, city: city.value, age_min: age_min.value, age_max: age_max.value, balance_min: balance_min.value, balance_max: balance_max.value, type: "fgts"})
+      })
+      .then((response) => {
+        if (response.ok) {
+            const divMessage = document.querySelector(".alert");
+            divMessage.style.display = "flex";
+            divMessage.innerHTML = "";
+            const message = document.createElement("p");
+            const img = document.createElement("img");
+            img.src = "/img/admin/Bulk/checked.png"
+            img.width = "28"
+            img.height = "28"
+            message.classList.add("message-notify");
+            message.innerText = "Lista adicionada com sucesso!";
+            divMessage.appendChild(img);
+            divMessage.appendChild(message);
+
+            setTimeout(() => {
+              divMessage.style = "animation: slideoff 2s;"
+              setTimeout(() => {
+                divMessage.style = "display: none"
+                location.reload()
+              }, 800)
+            }, 2000);
+        }
+      })
+      .catch((error) => {
+        const divMessage = document.querySelector(".alert");
+        divMessage.style.display = "flex";
+        divMessage.innerHTML = "";
+        const message = document.createElement("p");
+        const img = document.createElement("img");
+        img.src = "/img/admin/Bulk/error.png"
+        img.width = "28"
+        img.height = "28"
+        message.classList.add("message-notify");
+        divMessage.style = "background-color: #bb1414;"
+        message.innerText = "Erro";
+        divMessage.appendChild(img);
+        divMessage.appendChild(message);
+
+        setTimeout(() => {
+          divMessage.style = "animation: slideoff 2s;"
+          setTimeout(() => {
+            divMessage.style = "display: none"
+          }, 800)
+        }, 2000);
+      })
+    }
+  }
+
+</script>

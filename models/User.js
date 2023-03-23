@@ -5,10 +5,6 @@ const User = new mongoose.Schema({
         type: String,
         require: true
     },
-    number: {
-        type: Number,
-        require: true
-    },
     email: {
         type: String,
         require: true
@@ -21,25 +17,9 @@ const User = new mongoose.Schema({
         type: String,
         require: true
     },
-    campaings: {
+    pendings: {
         type: Array,
         default: []
-    },
-    contacts: {
-        type: Array,
-        default: []
-    },
-    id_admin: {
-        type: String,
-        require: true
-    },
-    credits_whatsapp: {
-        type: Number,
-        require: true
-    },
-    credits_sms: {
-        type: Number,
-        require: true
     },
     isAdmin: {
         type: Boolean,
@@ -49,6 +29,10 @@ const User = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    value: {
+        type: String,
+        require: true
+    }
     },
     {
         versionKey: false

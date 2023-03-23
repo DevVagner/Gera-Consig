@@ -7,8 +7,8 @@
     <meta name="author" content="Rocket Sell">
     <meta name="generator" content="Disparos">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <title>Rocket Sell | Login</title>
-    <link rel="shortcut icon" href="/img/login/favicon.ico" type="image/x-icon">
+    <title>Gera Consig | Login</title>
+    <link rel="shortcut icon" href="/img/login/gera.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/login/login.css">
   </head>
 
@@ -17,11 +17,15 @@
     <div class="alert" style="display: none;"></div>
 
     <div class="box" id="box">
+      <div class="img-box" style="background-color: #e4f42d">
+        <img src="/img/login/img-login.jpg" alt="">
+      </div>
+
       <div class="login-box">
-        <img class="icon" src="/img/login/rocketsell.png" alt="Icon">
+        <img class="icon" src="/img/login/gera.png" height="10px" alt="Icon">
         <p class="p-dados">Preencha com os seus dados:</p>
-        <input type="text" placeholder="  Email" id="inputEmail">
-        <input type="text" placeholder="  Senha" id="inputPassword">
+        <input type="text" placeholder="Email" id="inputEmail">
+        <input type="password" placeholder="Senha" id="inputPassword">
         <p class="p-senha">Esqueceu a sua senha?</p>
         <button class="btn-login" id="#btn-login">Entrar</button>
       </div>
@@ -57,12 +61,13 @@
       })
       .then((data) => {
         if (data.auth) {
-          if (data.admin) {
-            window.location.href = "https://rocketsell.herokuapp.com/platform/users"
-            // location.reload()
-          } else if (data.admin == false) {
-            location.reload()
-          }
+          setTimeout(() => {
+            if (data.admin) {
+              window.location.href = "https://gera-consig.herokuapp.com/platform/pendings"
+            } else if (data.admin == false) {
+              window.location.href = "https://gera-consig.herokuapp.com/platform/"
+            }
+          }, 2000);
         } else if (data.auth == false) {
           const divMessage = document.querySelector(".alert");
           divMessage.style.display = "flex";
